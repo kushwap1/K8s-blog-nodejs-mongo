@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: blog-mongodb-statefulset
+spec:
+  selector:
+    matchLabels:
+      app: some-mongo-container # has to match .spec.template.metadata.labels
+  serviceName: "some-mongo"
+  replicas: 1 # by default is 1
+  template:
+    metadata:
+      labels:
+        app: some-mongo-container # has to match .spec.selector.matchLabels
+    spec:
+      terminationGracePeriodSeconds: 10
+      securityContext:
+        runAsUser: 999
+        runAsGroup: 999
+        fsGroup: 0
+      containers:
+      - name: some-mongo
+        image: mongo:latest
+        ports:
+        - containerPort: 27017
+          name: mongoport
+        volumeMounts:
+        - name: nfs
+          mountPath: /data/db
+          readOnly: false
+  volumeClaimTemplates:
+  - metadata:
+      name: nfs
+    spec:
+      accessModes: [ "ReadWriteMany" ]
+      storageClassName: ""
+      resources:
+        requests:
+          storage: 1Gi

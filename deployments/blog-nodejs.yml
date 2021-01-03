@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blog-nodejs-deployment
+  labels:
+    app: blog-nodejs-deployment-label
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: blog-nodejs-pod
+  template:
+    metadata:
+      labels:
+        app: blog-nodejs-pod
+    spec:
+      containers:
+      - name: blog-v1
+        image: kushwap1/blog-v1.0:latest
+        ports:
+        - containerPort: 8095
+
