@@ -1,0 +1,22 @@
+Backup
+========
+
+sudo ETCDCTL_API=3 etcdctl snapshot save snapshot.db --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/server.crt --key /etc/kubernetes/pki/etcd/server.key
+
+
+To verify
+========
+
+sudo ETCDCTL_API=3 etcdctl --write-out=table snapshot status snapshot.db
+
+
+
+Restore
+========
+
+sudo ETCDCTL_API=3 etcdctl snapshot restore /home/cloud_user/snapshot.db --initial-cluster default=http://172.31.29.238:2380 --initial-advertise-peer-urls http://172.31.29.238:2380 --name default --data-dir /var/lib/etcd
+  (172.31.29.238 is private ip of K8s master)
+  
+After restore check pods, deployments, services etc objects to appear again.
+We can also restart kubelet on master
+Or if still issue then can reboot master.
