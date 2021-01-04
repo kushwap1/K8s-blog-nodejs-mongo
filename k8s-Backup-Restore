@@ -19,4 +19,4 @@ sudo ETCDCTL_API=3 etcdctl snapshot restore /home/cloud_user/snapshot.db --initi
   
 After restore check pods, deployments, services etc objects to appear again.
 We can also restart kubelet on master
-Or if still issue then can reboot master.
+Or if still issue then can reboot master and then reboot worker nodes.
