@@ -1,13 +1,13 @@
 Backup
 ========
 
-sudo ETCDCTL_API=3 etcdctl snapshot save snapshot.db --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/server.crt --key /etc/kubernetes/pki/etcd/server.key
+sudo ETCDCTL_API=3 etcdctl snapshot save snapshot_$(date +'%m/%d/%Y').db --cacert /etc/kubernetes/pki/etcd/ca.crt --cert /etc/kubernetes/pki/etcd/server.crt --key /etc/kubernetes/pki/etcd/server.key
 
 
 To verify
 ========
 
-sudo ETCDCTL_API=3 etcdctl --write-out=table snapshot status snapshot.db
+sudo ETCDCTL_API=3 etcdctl --write-out=table snapshot status snapshot_$(date +'%m/%d/%Y').db
 
 
 
