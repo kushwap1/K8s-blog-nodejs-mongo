@@ -19,4 +19,19 @@ spec:
         image: kushwap1/blog-v1.0:latest
         ports:
         - containerPort: 8095
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 8095
+          initialDelaySeconds: 120
+          timeoutSeconds: 180
+          periodSeconds: 300
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 8095
+          initialDelaySeconds: 10
+          timeoutSeconds: 30
+          periodSeconds: 60
+
 
